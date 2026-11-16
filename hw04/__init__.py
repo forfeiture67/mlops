@@ -1,0 +1,1 @@
+"""Tested digits classification pipeline."""
