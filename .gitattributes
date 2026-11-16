@@ -3,3 +3,4 @@
 *.yaml text eol=lf
 *.json text eol=lf
 *.csv text eol=lf
+hw03/lfs_demo/with-lfs.bin filter=lfs diff=lfs merge=lfs -text
