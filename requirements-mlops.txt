@@ -1,0 +1,12 @@
+# Python 3.12. Install CPU PyTorch first; see GUIDE_WINDOWS.md.
+torch==2.15.0
+lightning==2.6.6
+dvc==3.67.1
+numpy==2.3.5
+scikit-learn==1.8.0
+matplotlib==3.10.8
+mlflow==3.18.0
+pytest==9.2.0
+pytest-cov==7.1.0
+hypothesis==6.170.15
+ruff==0.17.5

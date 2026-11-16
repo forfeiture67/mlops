@@ -2,3 +2,17 @@
 __pycache__/
 *.pyc
 .ruff_cache/
+
+# Homework-generated local files
+.pytest_cache/
+.hypothesis/
+.coverage
+coverage.xml
+htmlcov/
+mlops-dvc-storage/
+hw03/lfs_demo/*.bin
+hw04/artifacts/
+hw05/mlflow.db*
+hw05/mlartifacts/
+hw05/lightning_logs/
+.venv-mlops/
