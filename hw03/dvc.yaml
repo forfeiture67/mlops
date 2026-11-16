@@ -1,0 +1,43 @@
+stages:
+  prepare:
+    cmd: python -m pipeline.prepare
+    deps:
+      - data/raw.csv
+      - pipeline/prepare.py
+      - pipeline/common.py
+    params:
+      - params.json:
+          - prepare.min_x
+    outs:
+      - data/clean.csv
+  split:
+    cmd: python -m pipeline.split
+    deps:
+      - data/clean.csv
+      - pipeline/split.py
+      - pipeline/common.py
+    params:
+      - params.json:
+          - split.test_ratio
+          - split.seed
+    outs:
+      - data/train.csv
+      - data/test.csv
+  train:
+    cmd: python -m pipeline.train
+    deps:
+      - data/train.csv
+      - pipeline/train.py
+      - pipeline/common.py
+    outs:
+      - artifacts/model.json
+  evaluate:
+    cmd: python -m pipeline.evaluate
+    deps:
+      - data/test.csv
+      - artifacts/model.json
+      - pipeline/evaluate.py
+      - pipeline/common.py
+    metrics:
+      - metrics.json:
+          cache: false

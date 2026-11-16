@@ -1,0 +1,97 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python -m pipeline.prepare
+    deps:
+    - path: data/raw.csv
+      hash: md5
+      md5: f6ec1fed82ecf6601980d5c6b0782562
+      size: 3237
+    - path: pipeline/common.py
+      hash: md5
+      md5: 3c2253e158f08c42c4d2a3f3538c517e
+      size: 759
+    - path: pipeline/prepare.py
+      hash: md5
+      md5: 33cb6b16c1f81184141396aebf984dc1
+      size: 609
+    params:
+      params.json:
+        prepare.min_x: 0
+    outs:
+    - path: data/clean.csv
+      hash: md5
+      md5: 49e5bbae8e5ac5a0b2ccf4df61a11d8b
+      size: 3230
+  split:
+    cmd: python -m pipeline.split
+    deps:
+    - path: data/clean.csv
+      hash: md5
+      md5: 49e5bbae8e5ac5a0b2ccf4df61a11d8b
+      size: 3230
+    - path: pipeline/common.py
+      hash: md5
+      md5: 3c2253e158f08c42c4d2a3f3538c517e
+      size: 759
+    - path: pipeline/split.py
+      hash: md5
+      md5: 1a4d6fd0577a168abf4ac76459acae63
+      size: 608
+    params:
+      params.json:
+        split.seed: 42
+        split.test_ratio: 0.2
+    outs:
+    - path: data/test.csv
+      hash: md5
+      md5: c3001539664e083aa3d307f5ec61d653
+      size: 646
+    - path: data/train.csv
+      hash: md5
+      md5: 739cd7b82ef206a88591cf6a3a42987a
+      size: 2596
+  train:
+    cmd: python -m pipeline.train
+    deps:
+    - path: data/train.csv
+      hash: md5
+      md5: 739cd7b82ef206a88591cf6a3a42987a
+      size: 2596
+    - path: pipeline/common.py
+      hash: md5
+      md5: 3c2253e158f08c42c4d2a3f3538c517e
+      size: 759
+    - path: pipeline/train.py
+      hash: md5
+      md5: 75817a2fc31b6d90f79f3493b3623d5b
+      size: 572
+    outs:
+    - path: artifacts/model.json
+      hash: md5
+      md5: 227b5ebc3bcc46b7b44d0ada2698de1b
+      size: 72
+  evaluate:
+    cmd: python -m pipeline.evaluate
+    deps:
+    - path: artifacts/model.json
+      hash: md5
+      md5: 227b5ebc3bcc46b7b44d0ada2698de1b
+      size: 72
+    - path: data/test.csv
+      hash: md5
+      md5: c3001539664e083aa3d307f5ec61d653
+      size: 646
+    - path: pipeline/common.py
+      hash: md5
+      md5: 3c2253e158f08c42c4d2a3f3538c517e
+      size: 759
+    - path: pipeline/evaluate.py
+      hash: md5
+      md5: 985845e52d0f6ac250a99609b0ba0924
+      size: 738
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: dd378ce82fe75f515a1816a286d508c1
+      size: 94

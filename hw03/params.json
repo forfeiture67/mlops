@@ -1,0 +1,4 @@
+{
+  "prepare": {"min_x": 0},
+  "split": {"test_ratio": 0.2, "seed": 42}
+}
