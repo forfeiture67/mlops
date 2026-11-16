@@ -1,0 +1,3 @@
+collect data
+prepare data
+train model
